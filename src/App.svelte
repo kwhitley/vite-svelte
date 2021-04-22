@@ -1,7 +1,14 @@
 <script>
+  import { onMount } from 'svelte'
+
   import logo from './assets/svelte.png'
   import Counter from './lib/Counter.svelte'
-  import Book from './lib/Book.svelte'
+  let Book // dynamic import
+
+  onMount(async () => {
+    await new Promise(f => setTimeout(f, 1000))
+		Book = (await import('./lib/Book.svelte')).default
+	})
 </script>
 
 <main>
@@ -12,7 +19,7 @@
 
   <br />
 
-  <Book />
+  <svelte:component this={Book} />
 
   <p>
     Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
