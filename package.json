@@ -1,0 +1,16 @@
+{
+  "name": "vite-svelte",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "next",
+    "sass": "^1.32.11",
+    "svelte": "^3.35.0",
+    "svelte-preprocess": "^4.7.2",
+    "vite": "^2.1.5"
+  }
+}
