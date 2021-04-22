@@ -4,10 +4,7 @@
   const increment = () => count++
 </script>
 
-<main on:click={increment}>
-  { count } * 2 = { count * 2 }
-</main>
-
+<!-- STYLES -->
 <style lang="scss">
   main {
     display: inline-block;
@@ -22,3 +19,8 @@
     }
   }
 </style>
+
+<!-- COMPONENT -->
+<main on:click={increment}>
+  { count } * 2 = { count * 2 }
+</main>

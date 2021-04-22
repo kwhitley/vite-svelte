@@ -4,15 +4,7 @@
   const loaded = getDetails()
 </script>
 
-{#await loaded}
-  <p>Loading book...</p>
-{:then book}
-  <main>
-    <h1>{ book.title }</h1>
-    <p>{ book.description }</p>
-  </main>
-{/await}
-
+<!-- STYLES -->
 <style type="scss">
   main {
     display: inline-block;
@@ -36,3 +28,13 @@
     max-width: 40em;
   }
 </style>
+
+<!-- COMPONENT -->
+{#await loaded}
+  <p>Loading book...</p>
+{:then book}
+  <main>
+    <h1>{ book.title }</h1>
+    <p>{ book.description }</p>
+  </main>
+{/await}
