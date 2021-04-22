@@ -1,7 +1,7 @@
 <script>
   const getDetails = () => fetch('https://openlibrary.org/works/OL45883W.json').then(r => r.json())
 
-  const loaded = getDetails()
+  const loading = getDetails()
 </script>
 
 <!-- STYLES -->
@@ -30,7 +30,7 @@
 </style>
 
 <!-- COMPONENT -->
-{#await loaded}
+{#await loading}
   <p>Loading book...</p>
 {:then book}
   <main>
