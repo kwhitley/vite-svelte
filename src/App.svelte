@@ -1,77 +1,28 @@
 <script>
-  import { onMount } from 'svelte'
+  import Collection from './components/collection/Collection.svelte'
+  import Loading from './components/Loading.svelte'
+  import { collection } from './stores/collection'
 
-  import logo from './assets/svelte.png'
-  import Counter from './lib/Counter.svelte'
-  let Book // dynamic import
-
-  onMount(async () => {
-    await new Promise(f => setTimeout(f, 1000))
-		Book = (await import('./lib/Book.svelte')).default
-	})
+  let collectionLoaded = collection.load('kevin').then(() => $collection)
 </script>
 
-<main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello world!</h1>
-
-  <Counter count={10} />
-
-  <br />
-
-  <svelte:component this={Book} />
-
-  <p>
-    Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-    apps.
-  </p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme">SvelteKit</a> for
-    the officially supported framework, also powered by Vite!
-  </p>
-</main>
+<div id="app">
+  {#await collectionLoaded}
+    <Loading />
+  {:then c}
+    <Collection collection={c} />
+  {/await}
+</div>
 
 <style>
-  :root {
+  #app {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: -0.02em;
   }
 
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
-  img {
-    height: 16rem;
-    width: 16rem;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4rem;
-    font-weight: 100;
-    line-height: 1.1;
-    margin: 2rem auto;
-    max-width: 14rem;
-  }
-
-  p {
-    max-width: 14rem;
-    margin: 1rem auto;
-    line-height: 1.35;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      max-width: none;
-    }
-
-    p {
-      max-width: none;
-    }
+  :global * {
+    padding: 0;
+    margin: 0;
   }
 </style>

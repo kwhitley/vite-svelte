@@ -1,7 +1,12 @@
 <script>
   export let count = 0
+  let name = 'Foo'
 
   const increment = () => count++
+
+  $: {
+    console.log('name has changed to', name)
+  }
 </script>
 
 <!-- STYLES -->
@@ -22,5 +27,9 @@
 
 <!-- COMPONENT -->
 <main on:click={increment}>
-  { count } * 2 = { count * 2 }
+  {count} * 2 = {count * 2}
 </main>
+
+<input bind:value={name} />
+
+Name is {name}
