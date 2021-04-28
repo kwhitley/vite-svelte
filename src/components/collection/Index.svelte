@@ -1,8 +1,13 @@
 
 <script>
+import { readable } from "svelte/store";
+
+
   import { fly } from 'svelte/transition'
   import { flip } from 'svelte/animate'
   import Search from './Search.svelte'
+
+  import { collection as c } from '../../stores/collection'
 
   export let collection = {}
 
@@ -10,6 +15,14 @@
   let filtered
 
   const setFiltered = e => filtered = e.detail
+
+  $: showItems = filtered || items
+  $: getPages = i => {
+    const ids = showItems.slice(i-1, i+2).map(item => item.id)
+    console.log('reading ids from', i, '-->', ids)
+
+    c.read(...ids)
+  }
 </script>
 
 <style type="scss">
@@ -31,13 +44,22 @@
     grid-auto-flow: dense;
   }
 
-  a {
+  .item {
     font-size: 2em;
     font-family: sans-serif;
     display: block;
     background: #ccc;
     position: relative;
     color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    outline: 0.1em solid white;
+
+    &:hover {
+      transform: scale(1.07);
+      box-shadow: 0.4em 0.4em 1.2em rgba(0,0,0,1);
+      z-index: 1;
+    }
 
     &:after {
       content: '';
@@ -84,11 +106,11 @@
   <Search items={items} on:search={setFiltered} />
 
   <div class="grid">
-    {#each filtered || items as image (image)}
-      <a href={`/images/${image.id}`} transition:fly={{ y: 1000, duration: 300 }} animate:flip={{ duration: 200 }}>
+    {#each showItems as image, i (image)}
+      <div class="item" on:click={() => getPages(i)} transition:fly={{ y: 1000, duration: 300 }} animate:flip={{ duration: 200 }}>
         <img src={`https://api.slick.af/images/${image.id}.jpg?size=small`} alt={image.title} />
         <span>{image.title || image.id}</span>
-      </a>
+      </div>
     {/each}
   </div>
 </main>

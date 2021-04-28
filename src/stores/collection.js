@@ -7,7 +7,7 @@ const detailsFetcher = new Fetcher()
 function createCollection() {
   const { subscribe, set, update } = writable({
     details: undefined,
-    pages: [,,],
+    pages: Array(3),
   })
 
   return {

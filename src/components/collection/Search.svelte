@@ -15,7 +15,6 @@
       return false
     })
 
-    console.log('dispatching with new items from search', newItems)
     dispatch('search', newItems)
   }
 </script>
