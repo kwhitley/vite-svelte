@@ -17,6 +17,8 @@ import { readable } from "svelte/store";
   const setFiltered = e => filtered = e.detail
 
   $: showItems = filtered || items
+
+
   $: getPages = i => {
     const ids = showItems.slice(i-1, i+2).map(item => item.id)
     console.log('reading ids from', i, '-->', ids)
@@ -82,10 +84,6 @@ import { readable } from "svelte/store";
     height: 100%;
     width: 100%;
     object-fit: cover;
-  }
-
-  input {
-    display: block;
   }
 
   h1 {

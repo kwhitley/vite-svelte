@@ -27,10 +27,16 @@
     border-radius: 0.3em;
     margin-bottom: 0.5em;
     padding: 0.3em;
-    outline: none;
+    // outline: none;
 
     &::placeholder {
       color: #ddd;
+    }
+
+    &:focus {
+      transition: outline-offset 30ms ease;
+      outline-offset: 5px;
+      outline-color: #f0c;
     }
   }
 </style>
